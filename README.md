@@ -81,6 +81,34 @@ mitema: mk({
 
 El popup, el botón flotante y el ciclo de temas lo recogen automáticamente.
 
+## Reconocimientos
+
+Algunas paletas están inspiradas en los esquemas de color de
+[Nord](https://www.nordtheme.com/), [Dracula](https://draculatheme.com/),
+[Tokyo Night](https://github.com/enkia/tokyo-night-vscode-theme),
+[Catppuccin](https://catppuccin.com/), [Gruvbox](https://github.com/morhetz/gruvbox),
+[Solarized](https://ethanschoonover.com/solarized/),
+[Rosé Pine](https://rosepinetheme.com/) y [Monokai](https://monokai.pro/),
+proyectos independientes de sus respectivos autores. ChatGPT Themer no está
+afiliado a ellos ni cuenta con su respaldo.
+
+ChatGPT y OpenAI son marcas de OpenAI. Este proyecto es independiente y no está
+afiliado ni respaldado por OpenAI.
+
+## Licencia
+
+© 2026 Alfredo ([alberruche](https://alberruche.com)).
+
+Publicado bajo **[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es)**
+(ver [LICENSE](LICENSE)):
+
+- ✅ Puedes copiarlo, modificarlo y publicar tus propias versiones.
+- ✅ Debes **citar la autoría original** (nombre y enlace) e indicar los cambios.
+- ✅ Los **derivados deben publicarse bajo esta misma licencia** (CompartirIgual).
+- ❌ **No se permite el uso comercial** de la extensión ni de sus derivados.
+
+¿Necesitas una licencia comercial? Escríbeme desde [alberruche.com](https://alberruche.com).
+
 ---
 
 Developed by [alberruche](https://alberruche.com)
