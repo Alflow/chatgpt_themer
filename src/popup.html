@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>ChatGPT Themer</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="mark" aria-hidden="true"></span>
+      <div>
+        <h1>ChatGPT Themer</h1>
+        <p id="status">Cargando…</p>
+      </div>
+    </div>
+    <label class="switch" title="Activar / desactivar">
+      <input type="checkbox" id="enabled">
+      <span class="track"><span class="thumb"></span></span>
+    </label>
+  </header>
+
+  <div class="body">
+    <nav class="tabs" id="tabs" role="tablist">
+      <button class="tab is-active" data-group="all" role="tab">Todos</button>
+      <button class="tab" data-group="dark" role="tab">Oscuros</button>
+      <button class="tab" data-group="light" role="tab">Claros</button>
+      <button class="tab" data-group="special" role="tab">Especiales</button>
+    </nav>
+
+    <div class="grid" id="grid" role="radiogroup" aria-label="Temas"></div>
+
+    <section class="panel">
+      <div class="row">
+        <label for="accent">Color de acento</label>
+        <div class="row-end">
+          <input type="color" id="accent" value="#3a83f7">
+          <button class="ghost" id="accentReset" title="Usar el del tema">Auto</button>
+        </div>
+      </div>
+
+      <div class="row col">
+        <div class="row-head">
+          <label for="fontSize">Tamaño de texto</label><output id="fontSizeOut">16 px</output>
+        </div>
+        <input type="range" id="fontSize" min="13" max="20" step="1">
+      </div>
+
+      <div class="row col">
+        <div class="row-head">
+          <label for="chatWidth">Ancho del chat</label><output id="chatWidthOut">Por defecto</output>
+        </div>
+        <input type="range" id="chatWidth" min="0" max="90" step="2">
+      </div>
+
+      <div class="row">
+        <label for="fontFamily">Tipografía</label>
+        <select id="fontFamily" class="row-end"></select>
+      </div>
+
+      <div class="row">
+        <label for="compact">Modo compacto</label>
+        <label class="switch sm"><input type="checkbox" id="compact"><span class="track"><span class="thumb"></span></span></label>
+      </div>
+
+      <div class="row">
+        <label for="hideAvatars">Ocultar avatares</label>
+        <label class="switch sm"><input type="checkbox" id="hideAvatars"><span class="track"><span class="thumb"></span></span></label>
+      </div>
+
+      <div class="row">
+        <label for="showWidget">Botón flotante en la página</label>
+        <label class="switch sm"><input type="checkbox" id="showWidget"><span class="track"><span class="thumb"></span></span></label>
+      </div>
+
+      <button class="ghost wide" id="reset">Restablecer todo</button>
+    </section>
+  </div>
+
+  <footer class="foot">
+    <a href="https://alberruche.com" target="_blank" rel="noopener">Developed by <strong>alberruche</strong></a>
+  </footer>
+
+  <script src="themes.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
