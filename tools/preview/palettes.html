@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!-- Lámina con todas las paletas, para la captura del README. -->
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>ChatGPT Themer — paletas</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 34px 40px 40px; background: #0f1014; color: #e9eaf0;
+      font: 13px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1 { margin: 0 0 2px; font-size: 17px; letter-spacing: -.01em; }
+    p.sub { margin: 0 0 22px; color: #8b8fa3; font-size: 12px; }
+    .sheet { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+    .group { grid-column: 1 / -1; margin: 10px 0 -4px; font-size: 11px; letter-spacing: .1em;
+             text-transform: uppercase; color: #8b8fa3; }
+    .card { border: 1px solid #262a36; border-radius: 12px; overflow: hidden; background: #171922; }
+    .mock { display: flex; height: 112px; }
+    .side { width: 27%; padding: 8px 6px; display: flex; flex-direction: column; gap: 5px; }
+    .side i { height: 4px; border-radius: 2px; display: block; opacity: .5; }
+    .side i:nth-child(2) { width: 78%; } .side i:nth-child(3) { width: 62%; }
+    .side i:nth-child(4) { width: 70%; }
+    .main { flex: 1; padding: 9px 9px 0; display: flex; flex-direction: column; gap: 6px; }
+    .bubble { align-self: flex-end; max-width: 72%; padding: 5px 7px; border-radius: 9px;
+              display: flex; flex-direction: column; gap: 3px; }
+    .bubble i { height: 3px; border-radius: 2px; display: block; width: 46px; opacity: .75; }
+    .bubble i + i { width: 30px; }
+    .reply { display: flex; flex-direction: column; gap: 4px; }
+    .reply i { height: 3px; border-radius: 2px; display: block; opacity: .55; }
+    .reply i:nth-child(1) { width: 88%; } .reply i:nth-child(2) { width: 96%; }
+    .reply i:nth-child(3) { width: 64%; }
+    .composer { margin-top: auto; height: 17px; border-radius: 9px; display: flex;
+                align-items: center; justify-content: flex-end; padding: 0 4px; }
+    .composer u { width: 9px; height: 9px; border-radius: 50%; display: block; }
+    .name { display: flex; align-items: center; justify-content: space-between;
+            padding: 7px 10px; border-top: 1px solid #262a36; font-size: 12px; }
+    .name code { color: #8b8fa3; font-size: 10.5px; font-family: ui-monospace, monospace; }
+  </style>
+</head>
+<body>
+  <h1>ChatGPT Themer — 21 paletas</h1>
+  <p class="sub">Cada tarjeta usa los colores reales que la extensión inyecta en ChatGPT.</p>
+  <div class="sheet" id="sheet"></div>
+
+  <script src="../../src/themes.js"></script>
+  <script>
+    const GROUPS = { dark: 'Oscuros', light: 'Claros', special: 'Especiales' };
+    const sheet = document.getElementById('sheet');
+
+    Object.keys(GROUPS).forEach(group => {
+      const head = document.createElement('div');
+      head.className = 'group';
+      head.textContent = GROUPS[group];
+      sheet.appendChild(head);
+
+      Object.entries(CT.THEMES)
+        .filter(([, t]) => t.group === group)
+        .forEach(([id, t]) => {
+          const v = t.vars || {
+            mainSurfacePrimary: '#212121', mainSurfaceSecondary: '#303030',
+            mainSurfaceTertiary: '#3f3f3f', sidebarSurfacePrimary: '#171717',
+            textPrimary: '#ececec', textSecondary: '#b4b4b4'
+          };
+          const accent = t.accent || '#3a83f7';
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <div class="mock">
+              <div class="side" style="background:${v.sidebarSurfacePrimary}">
+                <i style="background:${accent};opacity:.9"></i>
+                <i style="background:${v.textSecondary}"></i>
+                <i style="background:${v.textSecondary}"></i>
+                <i style="background:${v.textSecondary}"></i>
+              </div>
+              <div class="main" style="background:${v.mainSurfacePrimary}">
+                <div class="bubble" style="background:${v.mainSurfaceSecondary}">
+                  <i style="background:${v.textPrimary}"></i>
+                  <i style="background:${v.textPrimary}"></i>
+                </div>
+                <div class="reply">
+                  <i style="background:${v.textPrimary}"></i>
+                  <i style="background:${v.textPrimary}"></i>
+                  <i style="background:${v.textSecondary}"></i>
+                </div>
+                <div class="composer" style="background:${v.mainSurfaceTertiary}">
+                  <u style="background:${accent}"></u>
+                </div>
+              </div>
+            </div>
+            <div class="name"><span></span><code></code></div>`;
+          card.querySelector('.name span').textContent = t.name;
+          card.querySelector('.name code').textContent = accent;
+          sheet.appendChild(card);
+        });
+    });
+    document.body.dataset.ready = '1';
+  </script>
+</body>
+</html>

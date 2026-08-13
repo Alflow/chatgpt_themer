@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- Monta el popup real fuera de Chrome (con chrome.* simulado) para poder
+     capturarlo. Ver tools/README-shots.md -->
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>ChatGPT Themer — popup preview</title>
+  <link rel="stylesheet" href="../../src/popup.css">
+  <style>
+    /* El popup real estiliza <body>; aquí ese papel lo hace .frame y el body
+       pasa a ser el fondo del "hero" de la captura. */
+    body {
+      width: auto !important;
+      min-height: 100vh; margin: 0; padding: 46px 0;
+      display: grid; place-items: center;
+      background:
+        radial-gradient(70% 90% at 20% 0%, #241f4d 0%, transparent 60%),
+        radial-gradient(70% 90% at 85% 20%, #0d3b45 0%, transparent 55%),
+        #08090c !important;
+    }
+    .frame {
+      width: 380px; border-radius: 16px; overflow: hidden;
+      background: var(--bg); box-shadow: 0 30px 80px #000a, 0 0 0 1px #ffffff14;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame" id="frame"></div>
+  <script>
+    const preset = Object.fromEntries(new URLSearchParams(location.search));
+    const stored = {
+      settings: {
+        enabled: true,
+        theme: preset.theme || 'default',
+        accent: preset.accent || '',
+        fontSize: +(preset.fontSize || 16),
+        chatWidth: +(preset.chatWidth || 0),
+        fontFamily: '',
+        compact: false,
+        hideAvatars: false,
+        showWidget: true
+      }
+    };
+    window.chrome = {
+      storage: { sync: { get: (k, cb) => cb(stored), set: () => {} } },
+      tabs: { query: (q, cb) => cb([{ url: 'https://chatgpt.com/c/demo' }]) }
+    };
+  </script>
+  <script>
+    fetch('../../src/popup.html')
+      .then(r => r.text())
+      .then(html => {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        document.getElementById('frame').innerHTML = doc.body.innerHTML;
+        const themes = document.createElement('script');
+        themes.src = '../../src/themes.js';
+        themes.onload = () => {
+          const popup = document.createElement('script');
+          popup.src = '../../src/popup.js';
+          popup.onload = () => {
+            if (preset.tab) document.querySelector('[data-group="' + preset.tab + '"]').click();
+            document.body.dataset.ready = '1';
+          };
+          document.body.appendChild(popup);
+        };
+        document.body.appendChild(themes);
+      });
+  </script>
+</body>
+</html>

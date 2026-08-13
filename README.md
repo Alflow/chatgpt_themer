@@ -3,6 +3,12 @@
 Extensión de Chrome (Manifest V3) que repinta la interfaz de ChatGPT con 21 paletas,
 acento personalizable y unos cuantos ajustes de lectura.
 
+![El popup de ChatGPT Themer](docs/popup.png)
+
+## Las 21 paletas
+
+![Las 21 paletas incluidas](docs/paletas.png)
+
 ## Instalación (modo desarrollador)
 
 1. Abre `chrome://extensions`.
@@ -25,6 +31,10 @@ acento personalizable y unos cuantos ajustes de lectura.
   y se aplican al instante en todas las pestañas abiertas.
 - Aplicación en `document_start` con caché local: **sin parpadeo** al cargar.
 
+| Temas claros | Acento propio y ajustes |
+|---|---|
+| ![Pestaña de temas claros](docs/popup-claros.png) | ![Acento personalizado sobre Synthwave](docs/popup-especiales.png) |
+
 ## Estructura
 
 ```
@@ -34,6 +44,23 @@ src/content.js      inyecta el CSS y el botón flotante en chatgpt.com
 src/popup.html/css/js  interfaz de la extensión
 src/background.js   atajos de teclado
 tools/make-icons.js genera icons/*.png sin dependencias (node tools/make-icons.js)
+tools/preview/       páginas para regenerar las capturas de docs/
+docs/                capturas del README
+```
+
+### Regenerar las capturas
+
+`tools/preview/popup.html` monta el popup real fuera de Chrome (con `chrome.*`
+simulado) y acepta parámetros en la URL: `?theme=latte&tab=light&accent=%23ff2e88`.
+`tools/preview/palettes.html` dibuja la lámina de paletas leyendo `src/themes.js`,
+así que se actualiza sola al añadir un tema.
+
+```bash
+# 1) sirve la raíz del repo en :8731 (cualquier servidor estático vale)
+npx --yes serve -l 8731 .
+# 2) captura con el navegador headless que prefieras, p. ej.
+#    <skill>/browser.mjs http://localhost:8731/tools/preview/palettes.html \
+#      --wait .card --screenshot docs/paletas.png
 ```
 
 ## Añadir un tema
